@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ROBODEX Admin Panel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <!-- Login Section -->
+  <div id="login-section">
+    <h2>ROBODEX Admin</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <div class="password-container">
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="button" id="toggle-password" class="toggle-password">show</button>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+  </div>
+
+  <!-- Admin Panel -->
+  <div id="admin-panel" style="display: none;">
+    <header class="admin-header">
+      <h1>ROBODEX Admin Panel</h1>
+      <button id="logout-btn">Logout</button>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="dashboard-section">Dashboard</button>
+      <button class="tab" data-tab="event-section">Events</button>
+      <button class="tab" data-tab="member-section">Members</button>
+      <button class="tab" data-tab="project-section">Projects</button>
+      <button class="tab" data-tab="gallery-section">Gallery</button>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="section active">
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <h3>Members</h3>
+          <div class="stat" id="member-count">Loading...</div>
+          <button class="quick-action" data-tab="member-section">Manage</button>
+        </div>
+        <div class="stat-card">
+          <h3>Events</h3>
+          <div class="stat" id="event-count">Loading...</div>
+          <button class="quick-action" data-tab="event-section">Manage</button>
+        </div>
+        <div class="stat-card">
+          <h3>Projects</h3>
+          <div class="stat" id="project-count">Loading...</div>
+          <button class="quick-action" data-tab="project-section">Manage</button>
+        </div>
+        <div class="stat-card">
+          <h3>Gallery</h3>
+          <div class="stat" id="gallery-count">Loading...</div>
+          <button class="quick-action" data-tab="gallery-section">Manage</button>
+        </div>
+      </div>
+      <div class="system-info">
+        <h3>System Information</h3>
+        <div class="info-row">
+          <div class="info-label">Last Login:</div>
+          <div id="last-login">-</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Admin Email:</div>
+          <div id="admin-email">-</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Server Status:</div>
+          <div id="server-status">Online</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Events Section -->
+    <div id="event-section" class="section">
+      <h2 class="section-title">Manage Events</h2>
+      <form id="event-form" class="admin-form">
+        <div class="form-group">
+          <label for="event-name">Event Name</label>
+          <input id="event-name" name="name" placeholder="Event Name" required />
+        </div>
+        <div class="form-group">
+          <label for="event-date">Date</label>
+          <input id="event-date" name="date" placeholder="Date (e.g., June 2025)" required />
+        </div>
+        <div class="form-group file-input-container">
+          <label for="event-image-upload">Image</label>
+          <div class="file-input-wrapper">
+            <button type="button" class="file-input-button">Choose Image</button>
+            <input type="file" id="event-image-upload" accept="image/*" />
+            <span id="event-file-name">No file chosen</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="event-link">Link</label>
+          <input id="event-link" name="link" placeholder="Event Link" required />
+        </div>
+        <div class="form-group">
+          <label for="event-description">Description (Optional)</label>
+          <textarea id="event-description" name="description" placeholder="Event Description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="event-location">Location (Optional)</label>
+          <input id="event-location" name="location" placeholder="Event Location" />
+        </div>
+        <div class="form-group">
+          <label for="event-status">Status</label>
+          <select id="event-status" name="status">
+            <option value="upcoming">Upcoming</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div class="image-preview-container">
+          <img id="event-image-preview" src="" alt="Preview">
+          <div class="upload-progress">
+            <div class="progress-bar"></div>
+            <div class="progress-text">0%</div>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Add Event</button>
+      </form>
+      <div class="list-header">
+        <h3>Events List</h3>
+      </div>
+      <div id="events-list" class="list"></div>
+    </div>
+
+    <!-- Members Section -->
+    <div id="member-section" class="section">
+      <h2 class="section-title">Manage Members</h2>
+      <form id="member-form" class="admin-form">
+        <div class="form-group">
+          <label for="member-name">Name</label>
+          <input id="member-name" name="name" placeholder="Member Name" required />
+        </div>
+        <div class="form-group">
+          <label for="member-role">Role</label>
+          <input id="member-role" name="role" placeholder="Member Role (e.g., Technical Lead)" required />
+        </div>
+        <div class="form-group file-input-container">
+          <label for="member-image-upload">Image</label>
+          <div class="file-input-wrapper">
+            <button type="button" class="file-input-button">Choose Image</button>
+            <input type="file" id="member-image-upload" accept="image/*" />
+            <span id="member-file-name">No file chosen</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="member-description">Description (Optional)</label>
+          <textarea id="member-description" name="description" placeholder="Brief Bio"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="is-president">Position</label>
+          <select id="is-president" name="isPresident">
+            <option value="false">Regular Member</option>
+            <option value="true">President</option>
+          </select>
+        </div>
+        <div class="image-preview-container">
+          <img id="member-image-preview" src="" alt="Preview">
+          <div class="upload-progress">
+            <div class="progress-bar"></div>
+            <div class="progress-text">0%</div>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Add Member</button>
+      </form>
+      <div class="list-header">
+        <h3>Members List</h3>
+      </div>
+      <div id="members-list" class="list"></div>
+    </div>
+
+    <!-- Projects Section -->
+    <div id="project-section" class="section">
+      <h2 class="section-title">Manage Projects</h2>
+      <form id="project-form" class="admin-form">
+        <div class="form-group">
+          <label for="project-name">Project Name</label>
+          <input id="project-name" name="name" placeholder="Project Name" required />
+        </div>
+        <div class="form-group">
+          <label for="project-date">Date</label>
+          <input id="project-date" name="date" placeholder="Date (e.g., March 2025)" required />
+        </div>
+        <div class="form-group file-input-container">
+          <label for="project-image-upload">Image</label>
+          <div class="file-input-wrapper">
+            <button type="button" class="file-input-button">Choose Image</button>
+            <input type="file" id="project-image-upload" accept="image/*" />
+            <span id="project-file-name">No file chosen</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="project-link">Link</label>
+          <input id="project-link" name="link" placeholder="Project Link" required />
+        </div>
+        <div class="form-group">
+          <label for="project-description">Description (Optional)</label>
+          <textarea id="project-description" name="description" placeholder="Project Description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="project-technologies">Technologies (Optional, comma-separated)</label>
+          <input id="project-technologies" name="technologies" placeholder="e.g., Arduino, Python, ROS" />
+        </div>
+        <div class="form-group">
+          <label for="project-status">Status</label>
+          <select id="project-status" name="status">
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div class="image-preview-container">
+          <img id="project-image-preview" src="" alt="Preview">
+          <div class="upload-progress">
+            <div class="progress-bar"></div>
+            <div class="progress-text">0%</div>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Add Project</button>
+      </form>
+      <div class="list-header">
+        <h3>Projects List</h3>
+      </div>
+      <div id="projects-list" class="list"></div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery-section" class="section">
+      <h2 class="section-title">Manage Gallery</h2>
+      <form id="gallery-form" class="admin-form">
+        <div class="form-group">
+          <label for="media-type">Media Type</label>
+          <select id="media-type" name="mediaType">
+            <option value="image">Image</option>
+            <option value="video">Video</option>
+          </select>
+        </div>
+        
+        <!-- Image Upload (shown when media type is image) -->
+        <div class="form-group file-input-container" id="image-upload-container">
+          <label for="image-upload">Image</label>
+          <div class="file-input-wrapper">
+            <button type="button" class="file-input-button">Choose Image</button>
+            <input type="file" id="image-upload" accept="image/*" />
+            <span id="file-name">No file chosen</span>
+          </div>
+        </div>
+        
+        <!-- Video URL (shown when media type is video) -->
+        <div class="form-group" id="video-url-container" style="display: none;">
+          <label for="video-url">Video URL</label>
+          <input id="video-url" name="videoURL" placeholder="YouTube or Vimeo URL" />
+          <small class="help-text">Paste a YouTube or Vimeo video URL</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="gallery-title">Title</label>
+          <input id="gallery-title" name="title" placeholder="Media Title" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="gallery-date">Date</label>
+          <input id="gallery-date" name="date" placeholder="Date (e.g., May 2025)" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="gallery-category">Category</label>
+          <select id="gallery-category" name="category">
+            <option value="competitions">Competitions</option>
+            <option value="workshops">Workshops</option>
+            <option value="projects">Projects</option>
+            <option value="events">Events</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="gallery-description">Description (Optional)</label>
+          <textarea id="gallery-description" name="description" placeholder="Media Description"></textarea>
+        </div>
+        
+        <div class="image-preview-container">
+          <img id="image-preview" src="" alt="Preview">
+          <div id="video-preview-container" style="display: none;">
+            <div id="video-preview">Video URL added - will be embedded when published</div>
+          </div>
+          <div class="upload-progress">
+            <div class="progress-bar"></div>
+            <div class="progress-text">0%</div>
+          </div>
+        </div>
+        
+        <button type="submit" class="submit-btn">Add to Gallery</button>
+      </form>
+      
+      <div class="list-header">
+        <h3>Gallery Items</h3>
+      </div>
+      <div id="gallery-list" class="list gallery-items-grid"></div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
