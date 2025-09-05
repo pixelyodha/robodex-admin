@@ -244,9 +244,10 @@ function setupFormWithImage(formId, collectionName, listId) {
       const formData = new FormData(form);
       const obj = Object.fromEntries(formData.entries());
       
-      // Special handling for boolean values
-      if (obj.isPresident !== undefined) {
-        obj.isPresident = obj.isPresident === "true";
+      // Add isPresident field for members with role president
+      if (section === "member") {
+        // Set isPresident based on role
+        obj.isPresident = obj.role.toLowerCase() === "president";
       }
       
       // Special handling for comma-separated values
