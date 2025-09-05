@@ -143,7 +143,16 @@
         </div>
         <div class="form-group">
           <label for="member-role">Role</label>
-          <input id="member-role" name="role" placeholder="Member Role (e.g., Technical Lead)" required />
+          <select id="member-role" name="role" required>
+            <option value="president">President</option>
+            <option value="vice president">Vice President</option>
+            <option value="secretary">Secretary</option>
+            <option value="joint secretary">Joint Secretary</option>
+            <option value="operation head">Operation Head</option>
+            <option value="tech head">Tech Head</option>
+            <option value="senior member">Senior Member</option>
+            <option value="member">Member</option>
+          </select>
         </div>
         <div class="form-group file-input-container">
           <label for="member-image-upload">Image</label>
@@ -156,13 +165,6 @@
         <div class="form-group">
           <label for="member-description">Description (Optional)</label>
           <textarea id="member-description" name="description" placeholder="Brief Bio"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="is-president">Position</label>
-          <select id="is-president" name="isPresident">
-            <option value="false">Regular Member</option>
-            <option value="true">President</option>
-          </select>
         </div>
         <div class="image-preview-container">
           <img id="member-image-preview" src="" alt="Preview">
